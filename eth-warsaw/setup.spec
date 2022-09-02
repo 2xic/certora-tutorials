@@ -71,9 +71,19 @@ rule onlyOwnerOrTransferFromChangeBalance(method f)
 */
 
 rule transferCorrectness() {
+    env e;
+    address receiver;
+    uint256 amount;
 
-    // assert balanceSenderAfter == balanceSenderBefore - amount;
-    assert true;
+    require receiver != e.msg.sender;
+
+    uint256 balanceSenderBefore = balanceOf(e.msg.sender);
+
+    transfer(e, receiver, amount);
+
+    uint256 balanceSenderAfter = balanceOf(e.msg.sender);
+
+    assert balanceSenderAfter == balanceSenderBefore - amount;
 }
 
 /**
@@ -87,9 +97,17 @@ rule transferCorrectness() {
 */
 
 rule totalSupplyIsFixed(method f) {
+    env e;
+    address owner; //
+    calldataarg args;
 
-    // assert totalBefore == totalAfter;
-    assert true;
+    uint256 totalBefouncheckedre = totalSupply()
+
+    f(e, args);
+
+    uint256 totalAfter = totalSupply()
+
+    assert totalBefouncheckedre == totalAfter;
 }
 
 

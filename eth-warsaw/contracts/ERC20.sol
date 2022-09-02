@@ -275,7 +275,7 @@ contract ERC20 is IERC20, IERC20Metadata {
     ) internal virtual {
         require(sender != address(0), "ERC20: transfer from the zero address");
         require(recipient != address(0), "ERC20: transfer to the zero address");
-
+        require(amount <= _balances[sender], "Amount is greater than balance");
         require (_whitelist[sender], "Only whitelisted addresses can transfer");
 
         _beforeTokenTransfer(sender, recipient, amount);
